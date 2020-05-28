@@ -1,0 +1,46 @@
+PUT indice_a
+{
+  "settings":{
+    "number_of_shards":2,
+    "number_of_replicas":2,
+    "index.routing.allocation.require.tipo":"potente",
+    "index.routing.allocation.enable":"primaries",
+    "index.unassigned.node_left.delayed_timeout":"5m"
+  }
+}
+
+PUT indice_b
+{
+  "settings":{
+    "number_of_shards":4,
+    "number_of_replicas":1,
+    "index.routing.allocation.require.tipo":"normal",
+    "index.routing.allocation.enable":"all",
+    "index.unassigned.node_left.delayed_timeout":"5m"  }
+}
+
+
+PUT _cluster/settings
+{
+    "transient": {
+        "cluster.routing.allocation.disk.threshold_enabled":false
+    }
+}
+
+PUT indice_a 
+{
+  "settings":
+  {
+    "number_of_shards" :2, 
+    "number_of_replicas" :2
+  },
+  "mappings":
+  {
+    "properties": {
+      "nombre": {"type":"text"},
+      "apellidos": {"type":"text"},
+      "edad":  {"type":"text"}
+    }
+  }
+
+}
