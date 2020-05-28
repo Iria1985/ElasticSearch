@@ -1,6 +1,6 @@
 filebeat.inputs:
 - type: log
   paths:
-    - /home/ubuntu/environment/curso/carga/filebeat/apache.log 
+    - /home/ubuntu/environment/curso/instalacion6/carga/filebeat/apache.log
 output.logstash:
   hosts: ["localhost:5044"]
