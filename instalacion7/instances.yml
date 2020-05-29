@@ -41,26 +41,25 @@ instances:
     ip:
       - 127.0.0.1
 
-  - name: ingest1
+  - name: ingesta1
     dns:
-      - ingest1
+      - ingesta1
       - localhost
     ip:
       - 127.0.0.1
 
-  - name: coordinator1
+  - name: ingesta2
     dns:
-      - coordinator1
+      - ingesta2
       - localhost
-      - elasticcoordinator1
     ip:
       - 127.0.0.1
-
-  - name: coordinator2
+      
+  - name: coordinador1
     dns:
-      - coordinator2
+      - coordinador1
       - localhost
-      - elasticcoordinator2
+      - elasticcoordinador1
     ip:
       - 127.0.0.1
 

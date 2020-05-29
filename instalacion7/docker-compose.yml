@@ -40,12 +40,28 @@ services:
       - node.ingest=false
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
+      - cluster.join.timeout=180s
+      - cluster.publish.timeout=180s
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro1.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro1.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro1.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro1.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - maestro1:/usr/share/elasticsearch/data
+      - certmaestro1:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
 
@@ -65,12 +81,26 @@ services:
       - node.ingest=false
       # node.remote_cluster_client=false
       - cluster.remote.connect=false
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro2.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro2.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro2.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro2.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - maestro2:/usr/share/elasticsearch/data
+      - certmaestro2:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
       
@@ -91,12 +121,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - node.attr.tipo=potente
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/data1.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data1.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data1.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data1.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data1:/usr/share/elasticsearch/data
+      - certdata1:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
 
@@ -117,12 +161,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - node.attr.tipo=potente
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/data2.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data2.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data2.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data2.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data2:/usr/share/elasticsearch/data
+      - certdata2:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
       
@@ -143,12 +201,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - node.attr.tipo=normal
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/data3.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data3.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data3.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data3.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data3:/usr/share/elasticsearch/data
+      - certdata3:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
 
@@ -169,12 +241,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - node.attr.tipo=normal
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/data4.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data4.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data4.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data4.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - data4:/usr/share/elasticsearch/data
+      - certdata4:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
 
@@ -195,12 +281,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - transport.host=_eth0_
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta1.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta1.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta1.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta1.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - ingesta1:/usr/share/elasticsearch/data
+      - certingesta1:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
       - frontnet
@@ -222,12 +322,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - transport.host=_eth0_
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta2.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta2.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta2.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta2.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - ingesta2:/usr/share/elasticsearch/data
+      - certingesta2:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
       - frontnet
@@ -249,12 +363,26 @@ services:
       #- node.remote_cluster_client=false
       - cluster.remote.connect=false
       - transport.host=_eth0_
+      - xpack.license.self_generated.type=trial 
+      - ELASTIC_PASSWORD=password 
+      - xpack.security.enabled=true
+      - xpack.security.http.ssl.enabled=true
+      - xpack.security.http.ssl.key=/usr/share/elasticsearch/config/certificates/own/coordinador1.key
+      - xpack.security.http.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.http.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/coordinador1.crt
+      - xpack.security.transport.ssl.enabled=true
+      - xpack.security.transport.ssl.verification_mode=certificate 
+      - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
+      - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/coordinador1.crt
+      - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/coordinador1.key
     ulimits:
       memlock:
         soft: -1
         hard: -1
     volumes:
       - coordinador1:/usr/share/elasticsearch/data
+      - certcoordinador1:/usr/share/elasticsearch/config/certificates/own
+      - cadrive:/usr/share/elasticsearch/config/certificates/ca
     networks:
       - backnet
       - frontnet
@@ -314,7 +442,23 @@ services:
     depends_on:
       - kibana
       - cerebro
-      
+  
+  create_certs:
+    container_name: create_certs
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.5.2
+    command: >
+      bash -c '
+        if [[ ! -f /certs/bundle.zip ]]; then
+          bin/elasticsearch-certutil cert --silent --pem --in config/certificates/instances.yml -out /certs/bundle.zip;
+          chown -R 1000:0 /certs
+        fi
+      '
+    user: "0"
+    working_dir: /usr/share/elasticsearch
+    volumes: 
+      - 'certsroot:/certs'
+      - '.:/usr/share/elasticsearch/config/certificates'
+
 volumes:
   maestro1:
     driver: local
@@ -370,6 +514,82 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/var/elasticsearch/coordinador1'
+  certsroot:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs'
+  certmaestro1:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/maestro1'
+  certmaestro2:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/certmaestro2'
+  certingesta1:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/certingesta1'
+  certingesta2:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/certingesta2'
+  certdata1:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/data1'
+  certdata2:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/data2'
+  certdata3:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/data3'
+  certdata4:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/data4'
+  certcoordinador1:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/coordinador1'
+  certkibana:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/kibana'  
+  cadrive:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/ca'
+
+
+
+
 networks:
   backnet:
     ipam:
