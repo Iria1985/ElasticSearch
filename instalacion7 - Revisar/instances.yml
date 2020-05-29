@@ -1,14 +1,14 @@
 instances:
-  - name: master1
+  - name: maestro1
     dns:
-      - master1 
+      - maestro1 
       - localhost
     ip:
       - 127.0.0.1
 
-  - name: master2
+  - name: maestro2
     dns:
-      - master2
+      - maestro2
       - localhost
     ip:
       - 127.0.0.1

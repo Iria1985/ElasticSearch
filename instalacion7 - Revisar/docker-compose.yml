@@ -54,6 +54,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro1.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro1.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -93,6 +94,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/maestro2.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/maestro2.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -133,6 +135,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data1.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data1.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -173,6 +176,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data2.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data2.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -213,6 +217,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data3.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data3.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -253,6 +258,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/data4.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/data4.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -293,6 +299,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta1.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta1.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -334,6 +341,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/ingesta2.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/ingesta2.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -375,6 +383,7 @@ services:
       - xpack.security.transport.ssl.certificate_authorities=/usr/share/elasticsearch/config/certificates/ca/ca.crt
       - xpack.security.transport.ssl.certificate=/usr/share/elasticsearch/config/certificates/own/coordinador1.crt
       - xpack.security.transport.ssl.key=/usr/share/elasticsearch/config/certificates/own/coordinador1.key
+      - cluster.routing.allocation.disk.threshold_enabled=false
     ulimits:
       memlock:
         soft: -1
@@ -392,6 +401,7 @@ services:
     container_name: cerebro
     volumes:
       - ./application.conf:/opt/cerebro/conf/application.conf
+      - cadrive:/opt/cerebro/ca
     networks:
       - frontnet
 
@@ -399,11 +409,15 @@ services:
     image: docker.elastic.co/kibana/kibana:7.5.2
     container_name: kibana
     environment:
-      ELASTICSEARCH_HOSTS: "http://nginx:8082"
+      ELASTICSEARCH_HOSTS: "https://coordinador1:9200"
       SERVER_NAME: "kibana"
       SERVER_HOST: "kibana"
       ELASTICSEARCH_USERNAME: "elastic"
       ELASTICSEARCH_PASSWORD: "password"
+      ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES:  "/etc/kibana/config/certs/ca/ca.crt"
+      SERVER_SSL_ENABLED: "true"
+      SERVER_SSL_CERTIFICATE: "/etc/kibana/config/certs/kibana/kibana.crt"
+      SERVER_SSL_KEY: "/etc/kibana/config/certs/kibana/kibana.key"
     depends_on:
       - maestro1
       - maestro2
@@ -416,6 +430,9 @@ services:
       - coordinador1
     networks:
       - frontnet
+    volumes:
+      - certkibana:/etc/kibana/config/certs/kibana
+      - cadrive:/etc/kibana/config/certs/ca
 
   nginx: 
     image: nginx:latest
@@ -514,12 +531,28 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/var/elasticsearch/coordinador1'
+
+
+
+
   certsroot:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
       device: '/var/elasticsearch/certs'
+  cadrive:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/ca'
+  certkibana:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/var/elasticsearch/certs/kibana'
   certmaestro1:
     driver: local
     driver_opts:
@@ -531,19 +564,19 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/var/elasticsearch/certs/certmaestro2'
+      device: '/var/elasticsearch/certs/maestro2'
   certingesta1:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/var/elasticsearch/certs/certingesta1'
+      device: '/var/elasticsearch/certs/ingesta1'
   certingesta2:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/var/elasticsearch/certs/certingesta2'
+      device: '/var/elasticsearch/certs/ingesta2'
   certdata1:
     driver: local
     driver_opts:
@@ -574,18 +607,6 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '/var/elasticsearch/certs/coordinador1'
-  certkibana:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/var/elasticsearch/certs/kibana'  
-  cadrive:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: '/var/elasticsearch/certs/ca'
 
 
 
